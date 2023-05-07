@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: interview09052023-web
+  labels:
+    app: interview09052023-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: interview09052023-web
+  template:
+    metadata:
+      labels:
+        app: interview09052023-web
+    spec:
+      containers:
+      - name: web
+        image: tdeheurles/interview09052023-web:0.0.3
+        ports:
+        - containerPort: 8080
+        env:
+          - name: author
+            value: helene
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: interview09052023-web-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: interview09052023-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../kubernetes/web.yaml
+
+images:
+- name: tdeheurles/interview09052023-web
+  newName: ${DOCKERHUB_REPOSITORY}
+  newTag: ${DOCKERHUB_TAG}
