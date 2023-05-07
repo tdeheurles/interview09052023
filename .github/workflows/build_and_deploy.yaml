@@ -51,9 +51,10 @@ jobs:
 
     - name: Get GKE credentials
       run: |
-        gcloud container clusters get-credentials ${{ env.GKE_CLUSTER }} --zone ${{ env.GKE_ZONE }} --project ${{ env.GKE_PROJECT }}
+        gcloud container clusters get-credentials ${{ env.GKE_CLUSTER }} --zone ${{ env.GKE_ZONE }} --project ${{ env.GKE_PROJECT }} --internal-ip --quiet
         kubectl config use-context ${{ env.GKE_CLUSTER }}
         kubectl config view --flatten --minify > ${{ env.KUBECONFIG }}
+
 
     - name: Deploy to GKE
       run: |
